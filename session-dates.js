@@ -24,7 +24,7 @@ const sessionInfo = {
   recurring: {
     anchorDate: "2026-07-11",  // any one confirmed Saturday session date
     intervalDays: 14,           // every other week
-    showNext: 6                 // how many upcoming sessions to display
+    showNext: 2                 // how many upcoming sessions to display
   },
 
   // ---- Exceptions (optional) ----
