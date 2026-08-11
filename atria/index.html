@@ -11,16 +11,21 @@
 <header><div class="brand"><h1>Senior Genius Bar</h1><p>Atria Resident Support</p></div>
 <nav>
 <a href="../index.html">Public Home</a><a href="index.html">Atria Home</a><a href="../guides.html">Helpful Guides</a>
-<a href="../request-help.html">Ask a Question</a><a href="../resources.html">Resources</a>
+<a href="../request-help.html">Ask a Question</a><a href="../resources.html">Resources</a><a href="../avenue-one/index.html">Avenue One</a>
 </nav></header>
 
 <main>
 <div class="container"><section class="page-head"><span class="badge">For Atria residents and families only</span>
 <h2>Atria Resident Support</h2><p>Upcoming in-person technology help sessions.</p></section>
 <section><div class="card notice">
-<h2 class="section-title">Next Help Sessions</h2>
+<h2 class="section-title">Session Calendar</h2>
 <p><strong>Location:</strong> <span id="sessionLocation"></span></p>
-<div class="session-grid" id="sessionGrid"></div>
+<p style="color:var(--muted);margin-top:4px">We typically meet every other Saturday — check below for exact upcoming dates.</p>
+
+<h3 style="color:var(--navy);margin-top:22px;margin-bottom:10px">Upcoming Sessions</h3>
+<div class="session-grid" id="upcomingGrid"></div>
+<p id="noUpcoming" style="display:none;color:var(--muted)">No upcoming sessions are scheduled right now — please check back soon.</p>
+
 <p><strong>Bring:</strong> <span id="sessionBring"></span></p>
 </div></section>
 <section><div class="grid">
@@ -44,11 +49,66 @@
 <script src="../assets/site.js"></script>
 <script src="../assets/session-dates.js"></script>
 <script>
+/* Upcoming Sessions generates itself from the recurring pattern in
+   session-dates.js — no manual date entry needed as time goes on. See
+   the comments at the top of that file to adjust the pattern, skip a
+   date, or add a one-off extra session. */
+
 document.getElementById('sessionLocation').textContent = sessionInfo.location;
 document.getElementById('sessionBring').textContent = sessionInfo.bring;
-document.getElementById('sessionGrid').innerHTML = sessionInfo.sessions.map(s =>
-  '<div class="session"><strong>' + s.date + '</strong><span>' + s.time + '</span></div>'
-).join('');
+
+function formatFriendly(iso){
+  const [y, m, d] = iso.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  return dt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+}
+
+function toISO(d){
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function renderSession(s){
+  return '<div class="session"><strong>' + formatFriendly(s.date) + '</strong><span>' + s.time + '</span></div>';
+}
+
+function generateUpcoming(){
+  const { anchorDate, intervalDays, showNext } = sessionInfo.recurring;
+  const [ay, am, ad] = anchorDate.split('-').map(Number);
+  const msPerDay = 24 * 60 * 60 * 1000;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  let cursor = new Date(ay, am - 1, ad);
+  if (cursor < today) {
+    const diffDays = Math.round((today - cursor) / msPerDay);
+    const stepsToAdd = Math.ceil(diffDays / intervalDays);
+    cursor = new Date(cursor.getTime() + stepsToAdd * intervalDays * msPerDay);
+  }
+
+  const results = [];
+  let safety = 0;
+  while (results.length < showNext && safety < 100) {
+    const iso = toISO(cursor);
+    if (!sessionInfo.skipDates.includes(iso)) {
+      results.push({ date: iso, time: sessionInfo.time });
+    }
+    cursor = new Date(cursor.getTime() + intervalDays * msPerDay);
+    safety++;
+  }
+  return results;
+}
+
+const todayStr = toISO(new Date());
+const generated = generateUpcoming();
+const extras = sessionInfo.extraDates.filter(e => e.date >= todayStr);
+const upcoming = [...generated, ...extras].sort((a, b) => a.date.localeCompare(b.date));
+
+document.getElementById('upcomingGrid').innerHTML = upcoming.map(renderSession).join('');
+document.getElementById('noUpcoming').style.display = upcoming.length ? 'none' : 'block';
 </script>
 
 </body></html>

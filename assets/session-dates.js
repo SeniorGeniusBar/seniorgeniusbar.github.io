@@ -1,87 +1,41 @@
 // ======================================================================
-// AVENUE ONE EVENT HISTORY — this is the ONLY file you need to edit to
-// add, remove, or update sessions shown on the Avenue One Community page.
+// ATRIA SESSION SETTINGS
 //
-// To add a session: copy a whole line (it looks like "2026-09-05",)
-// and change the date. Write dates as YEAR-MONTH-DAY, like "2026-09-05"
-// for September 5, 2026 — the website turns it into a friendly date and
-// groups it under the right year automatically.
+// UPCOMING SESSIONS now generate themselves automatically from the
+// recurring pattern below — you do NOT need to add a new date every two
+// weeks anymore. As long as sessions keep happening every other Saturday,
+// this file almost never needs to change.
 //
-// To remove a session: delete its line.
-// Just keep the quote marks " " around each date, and a comma after
-// every line except the very last one inside the brackets.
+// "anchorDate" is just ONE confirmed session date that falls on the
+// right pattern (any real Saturday you've actually held a session on).
+// The website counts forward in 14-day steps from that date to figure
+// out which Saturdays come next — today, next week, next year, forever.
+//
+// If the pattern ever changes (different day of the week, or a
+// different number of weeks between sessions), update anchorDate and/or
+// intervalDays once, and everything recalculates itself.
 // ======================================================================
 
-const avenueOneEvents = [
-  "2023-07-01",
-  "2023-07-15",
-  "2023-07-29",
-  "2023-08-05",
-  "2023-08-27",
-  "2023-09-10",
-  "2023-09-24",
-  "2023-10-08",
-  "2023-10-22",
-  "2023-11-05",
-  "2023-11-19",
-  "2023-12-03",
-  "2024-01-07",
-  "2024-01-21",
-  "2024-02-04",
-  "2024-02-18",
-  "2024-03-10",
-  "2024-03-17",
-  "2024-06-09",
-  "2024-06-23",
-  "2024-07-04",
-  "2024-07-14",
-  "2024-07-28",
-  "2024-09-01",
-  "2024-09-15",
-  "2024-09-29",
-  "2024-10-13",
-  "2024-10-27",
-  "2024-11-10",
-  "2024-11-28",
-  "2024-12-01",
-  "2024-12-15",
-  "2024-12-24",
-  "2025-01-05",
-  "2025-01-19",
-  "2025-02-02",
-  "2025-02-16",
-  "2025-03-02",
-  "2025-03-16",
-  "2025-03-30",
-  "2025-04-04",
-  "2025-04-13",
-  "2025-04-27",
-  "2025-05-11",
-  "2025-05-25",
-  "2025-06-08",
-  "2025-08-03",
-  "2025-08-17",
-  "2025-08-31",
-  "2025-09-14",
-  "2025-09-28",
-  "2025-10-12",
-  "2025-11-09",
-  "2025-11-23",
-  "2025-12-21",
-  "2025-12-26",
-  "2026-01-03",
-  "2026-01-17",
-  "2026-01-31",
-  "2026-02-14",
-  "2026-02-28",
-  "2026-03-14",
-  "2026-03-28",
-  "2026-04-11",
-  "2026-04-12",
-  "2026-04-26",
-  "2026-05-10",
-  "2026-05-24",
-  "2026-05-31",
-  "2026-06-07",
-  "2026-06-14"
-];
+const sessionInfo = {
+  location: "The Parlor",
+  bring: "your phone, tablet, laptop, charger, and questions.",
+  time: "1:00 PM",
+
+  recurring: {
+    anchorDate: "2026-07-11",  // any one confirmed Saturday session date
+    intervalDays: 14,           // every other week
+    showNext: 6                 // how many upcoming sessions to display
+  },
+
+  // ---- Exceptions (optional) ----
+  // To SKIP a specific date (holiday, canceled session), add it here,
+  // e.g. "2026-12-26",
+  skipDates: [
+  ],
+
+  // To add an EXTRA one-off session outside the normal pattern, add it
+  // here with its own date and time, e.g.
+  // { date: "2026-08-01", time: "1:00 PM" },
+  extraDates: [
+  ]
+};
