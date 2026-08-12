@@ -10,7 +10,7 @@
 <button id="contrastToggle" onclick="toggleContrast()">High Contrast</button></div>
 <header><div class="brand"><h1>Senior Genius Bar</h1><p>Atria Resident Support</p></div>
 <nav>
-<a href="../index.html">Public Home</a><a href="index.html">Atria Home</a><a href="../guides.html">Helpful Guides</a>
+<a href="../index.html">Public Home</a><a href="../guides.html">Helpful Guides</a>
 <a href="../request-help.html">Ask a Question</a><a href="../resources.html">Resources</a><a href="../avenue-one/index.html">Avenue One</a><a href="index.html">Atria Residents</a>
 </nav></header>
 
@@ -18,19 +18,16 @@
 <div class="container"><section class="page-head"><span class="badge">For Atria residents and families only</span>
 <h2>Atria Resident Support</h2><p>Upcoming in-person technology help sessions.</p></section>
 <section><div class="card notice">
-<h2 class="section-title">Session Calendar</h2>
+<h2 class="section-title">Upcoming Sessions</h2>
 <p><strong>Location:</strong> <span id="sessionLocation"></span></p>
-<p style="color:var(--muted);margin-top:4px">We typically meet every other Saturday — check below for exact upcoming dates.</p>
-
-<h3 style="color:var(--navy);margin-top:22px;margin-bottom:10px">Upcoming Sessions</h3>
 <div class="session-grid" id="upcomingGrid"></div>
 <p id="noUpcoming" style="display:none;color:var(--muted)">No upcoming sessions are scheduled right now — please check back soon.</p>
 
 <p><strong>Bring:</strong> <span id="sessionBring"></span></p>
 </div></section>
-<section><div class="grid">
+<section class="community-links"><div style="text-align:center"><span class="section-kicker">More Help</span></div><h2 class="section-title">Help Between Visits</h2><div class="grid">
 <div class="tile"><h3>At the Session</h3><p>Get help with FaceTime, texting, photos, email, Wi‑Fi, accessibility settings, and basic troubleshooting.</p></div>
-<a class="tile" href="../request-help.html"><h3>Between Visits</h3><p>Atria residents and family members may send a basic question by email.</p><p class="tile-cta">Ask a Question →</p></a>
+<a class="tile" href="../request-help.html#remote-options"><h3>Remote Help</h3><p>Email a question, or send a photo, screenshot, or short video between visits.</p><p class="tile-cta">See Remote Help Options →</p></a>
 <a class="tile" href="../guides.html"><h3>Helpful Guides</h3><p>Illustrated, large-print picture guides you can use anytime, on any device.</p><p class="tile-cta">View Guides →</p></a>
 </div></section>
 <section><h2 class="section-title">Common Questions</h2><div class="faq">
@@ -103,9 +100,15 @@ function generateUpcoming(){
 }
 
 const todayStr = toISO(new Date());
+const manual = (typeof ATRIA_MANUAL_OVERRIDE !== 'undefined' ? ATRIA_MANUAL_OVERRIDE : [])
+  .filter(e => e.date >= todayStr)
+  .sort((a,b) => a.date.localeCompare(b.date));
+
 const generated = generateUpcoming();
 const extras = sessionInfo.extraDates.filter(e => e.date >= todayStr);
-const upcoming = [...generated, ...extras].sort((a, b) => a.date.localeCompare(b.date));
+const upcoming = manual.length
+  ? manual.slice(0, sessionInfo.recurring.showNext)
+  : [...generated, ...extras].sort((a, b) => a.date.localeCompare(b.date)).slice(0, sessionInfo.recurring.showNext);
 
 document.getElementById('upcomingGrid').innerHTML = upcoming.map(renderSession).join('');
 document.getElementById('noUpcoming').style.display = upcoming.length ? 'none' : 'block';
