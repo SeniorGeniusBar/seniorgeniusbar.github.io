@@ -779,3 +779,79 @@ body.contrast .btn.secondary:focus-visible{
   background:#fff !important;
   color:#000 !important;
 }
+
+
+/* ============================================================
+   SENIOR-FRIENDLY VISUAL SYSTEM — CONSOLIDATED SITE PASS
+   ============================================================ */
+:root{--surface:#ffffff;--soft-blue:#f3f8fd;--line:#c7dbea;--shadow:0 5px 16px rgba(22,58,95,.08)}
+.btn{font-weight:800;min-height:50px;display:inline-flex;align-items:center;justify-content:center;line-height:1.2}
+.tile,.card,details{box-shadow:var(--shadow)}
+.tile{background:#f5f9fd;border-color:var(--line);padding:24px}
+.tile h3{font-size:calc(24px * var(--font-scale))}
+.tile p{line-height:1.55}
+.page-head p,.guide-section-intro{color:#465766}
+
+/* Compact, scannable accessibility rows */
+.mini-guides-section{max-width:960px;margin:0 auto}
+.mini-guides-section .eyebrow{text-align:left;margin-bottom:4px}
+.mini-guides-section .section-title{text-align:left;margin-bottom:6px}
+.guide-section-intro{text-align:left!important;max-width:780px!important;margin:0 0 20px!important}
+.mini-guide{padding:0!important;margin-bottom:10px!important;border:1.5px solid #d6e1e9!important;border-radius:16px!important;background:#fff!important;overflow:hidden;box-shadow:0 3px 12px rgba(22,58,95,.06)!important}
+.mini-guide > summary{display:grid!important;grid-template-columns:58px 38px minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 16px!important;min-height:86px;flex-wrap:nowrap!important;background:#fff}
+.mini-guide > summary:hover,.mini-guide > summary:focus{background:#f4f9fd}
+.mini-guide-icon{width:54px;height:54px;border-radius:14px;background:#e9f3fd;color:#123a64;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;line-height:1}
+.mini-guide-number{width:34px;height:34px;border-radius:50%;background:#245ea6;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+.mini-guide-title{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(260px,1.2fr);align-items:center;gap:20px;min-width:0}
+.mini-guide-title strong{font-size:calc(21px * var(--font-scale));color:var(--navy);line-height:1.25}
+.mini-guide-title small{font-size:calc(16px * var(--font-scale));color:#465766;line-height:1.35}
+.mini-guide > summary::after{content:"Open Guide  ›"!important;background:#123a64!important;color:#fff!important;border:2px solid #123a64!important;border-radius:12px!important;padding:11px 16px!important;font-size:calc(16px * var(--font-scale))!important;min-width:132px;text-align:center}
+.mini-guide[open] > summary::after{content:"Close Guide  ↑"!important;background:#246b4a!important;border-color:#246b4a!important;color:#fff!important}
+.mini-guide-body{padding:6px 22px 22px;border-top:1px solid #e1e7ec}
+.accessibility-master-tip{margin:16px 0 8px;background:#fff8df;border:1.5px solid #e6c46e;border-radius:14px;padding:14px 18px;color:#263747;font-size:calc(17px * var(--font-scale))}
+.accessibility-master-tip strong{color:#163a5f}
+
+/* Quick-start choices use the same clear visual language */
+.guide-choice-grid{gap:14px!important}
+.guide-choice-card{background:#fff!important;border:1.5px solid #b8cfe2!important;border-radius:16px!important;box-shadow:0 3px 12px rgba(22,58,95,.06);min-height:112px!important;padding:18px!important}
+.guide-choice-card::after{content:"›";margin-left:auto;color:#163a5f;font-size:36px;font-weight:800;line-height:1}
+.guide-choice-card:hover,.guide-choice-card:focus-visible{background:#f3f8fd!important;box-shadow:0 6px 16px rgba(22,58,95,.12)}
+
+/* Consistent, easier-to-read links/buttons throughout the site */
+.community-bubble,.accessibility button,nav a{font-weight:800}
+.shared-help-strip,.calendar-card,.request-option,.remote-card{box-shadow:var(--shadow)}
+
+/* High contrast — explicit coverage for redesigned components */
+body.contrast .mini-guide,body.contrast .mini-guide > summary,body.contrast .guide-choice-card{background:#050505!important;color:#fff!important;border-color:#fff!important}
+body.contrast .mini-guide > summary:hover,body.contrast .mini-guide > summary:focus,body.contrast .guide-choice-card:hover,body.contrast .guide-choice-card:focus-visible{background:#191919!important}
+body.contrast .mini-guide-icon{background:#fff!important;color:#000!important}
+body.contrast .mini-guide-number{background:#ffd166!important;color:#000!important}
+body.contrast .mini-guide-title strong,body.contrast .guide-choice-copy strong{color:#ffd166!important}
+body.contrast .mini-guide-title small,body.contrast .guide-choice-copy small{color:#fff!important}
+body.contrast .mini-guide > summary::after{background:#fff!important;color:#000!important;border-color:#fff!important}
+body.contrast .mini-guide[open] > summary::after{background:#5ec98d!important;color:#04150c!important;border-color:#5ec98d!important}
+body.contrast .mini-guide-body{border-color:#777!important}
+body.contrast .accessibility-master-tip{background:#201900!important;color:#fff!important;border-color:#ffd166!important}
+body.contrast .accessibility-master-tip strong{color:#ffd166!important}
+body.contrast .guide-choice-card::after{color:#ffd166!important}
+body.contrast .tile,body.contrast .card{background:#080808!important;border-color:#ddd!important;color:#fff!important}
+body.contrast .tile h3,body.contrast .card h2,body.contrast .card h3{color:#ffd166!important}
+
+@media(max-width:820px){
+ .mini-guides-section .eyebrow,.mini-guides-section .section-title,.guide-section-intro{text-align:center!important}
+ .guide-section-intro{margin:0 auto 20px!important}
+ .mini-guide > summary{grid-template-columns:50px minmax(0,1fr) auto;gap:10px;padding:13px!important}
+ .mini-guide-icon{width:48px;height:48px;font-size:25px}
+ .mini-guide-number{display:none}
+ .mini-guide-title{display:block}
+ .mini-guide-title strong,.mini-guide-title small{display:block}
+ .mini-guide-title small{margin-top:3px}
+ .mini-guide > summary::after{min-width:110px;padding:10px 12px!important}
+}
+@media(max-width:560px){
+ .mini-guide > summary{grid-template-columns:46px 1fr;align-items:start}
+ .mini-guide > summary::after{grid-column:1/-1;width:100%;margin-top:4px}
+ .mini-guide-icon{width:44px;height:44px;font-size:23px}
+ .mini-guide-body{padding:6px 14px 18px}
+ .guide-choice-card::after{font-size:30px}
+}
