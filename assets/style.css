@@ -539,3 +539,90 @@ body.contrast .mini-guide > summary::after{color:#9fc4ff}
 @media(max-width:520px){
   .guide-start-grid{grid-template-columns:1fr}
 }
+
+
+/* Cleaner senior-friendly help chooser */
+.guide-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  max-width:900px;
+  margin:24px auto 0;
+}
+.guide-choice-card{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-height:110px;
+  padding:18px 20px;
+  background:#fff;
+  border:2px solid #b9d4e8;
+  border-radius:20px;
+  text-decoration:none;
+  color:var(--text);
+}
+.guide-choice-card:hover{
+  background:var(--sky);
+  border-color:var(--navy);
+}
+.guide-choice-icon{
+  flex:0 0 auto;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  background:#edf5f8;
+  font-size:28px;
+}
+.guide-choice-copy{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  min-width:0;
+}
+.guide-choice-copy strong{
+  color:var(--navy);
+  font-size:calc(21px * var(--font-scale));
+  line-height:1.2;
+}
+.guide-choice-copy small{
+  color:var(--muted);
+  font-size:calc(16px * var(--font-scale));
+  line-height:1.4;
+}
+.picture-guide-bridge{
+  max-width:900px;
+  margin:0 auto 28px;
+  padding:16px 18px;
+  border-left:6px solid var(--blue-border, #b9d4e8);
+  background:#f4f9ff;
+  border-radius:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  align-items:baseline;
+}
+.picture-guide-bridge strong{color:var(--navy)}
+.picture-guide-bridge a{margin-left:auto}
+body.contrast .guide-choice-card{
+  background:#111 !important;
+  border-color:#666 !important;
+  color:#f5f5f5 !important;
+}
+body.contrast .guide-choice-copy strong{color:#ffd166 !important}
+body.contrast .guide-choice-copy small{color:#f5f5f5 !important}
+body.contrast .guide-choice-icon{background:#222}
+body.contrast .picture-guide-bridge{
+  background:#111;
+  border-color:#5ec98d;
+  color:#f5f5f5;
+}
+body.contrast .picture-guide-bridge strong{color:#ffd166}
+body.contrast .picture-guide-bridge a{color:#9fc4ff}
+@media(max-width:700px){
+  .guide-choice-grid{grid-template-columns:1fr}
+  .guide-choice-card{min-height:96px}
+  .picture-guide-bridge a{margin-left:0;width:100%}
+}
