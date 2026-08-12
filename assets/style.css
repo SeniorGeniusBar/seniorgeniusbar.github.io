@@ -407,3 +407,135 @@ body.contrast .check-list li:before{background:#5ec98d;color:#04150c}
 @media print{
   .skip-link,.accessibility,nav,.print-guide,.site-footer-actions{display:none !important}
 }
+
+
+/* ============================================================
+   SENIOR-FRIENDLY GUIDE FINDER + ACCESSIBILITY MINI-GUIDES
+   ============================================================ */
+.guide-section-intro{
+  text-align:center;
+  max-width:760px;
+  margin:0 auto 20px;
+  color:var(--muted);
+}
+.guide-start-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(220px,1fr));
+  gap:16px;
+  margin-top:24px;
+}
+.guide-start-card{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-height:118px;
+  padding:20px;
+  border:2px solid var(--blue-border, #b9d4e8);
+  border-radius:20px;
+  background:#fff;
+  text-decoration:none;
+  color:var(--text);
+}
+.guide-start-card strong{
+  color:var(--navy);
+  font-size:calc(21px * var(--font-scale));
+}
+.guide-start-card span{color:var(--muted)}
+.guide-start-card:hover{background:var(--sky);border-color:var(--navy)}
+.mini-guides-section{margin-top:10px}
+.mini-guide{
+  background:#fff;
+  border:2px solid #b9d4e8;
+  border-radius:20px;
+  margin-bottom:14px;
+  overflow:hidden;
+}
+.mini-guide > summary{
+  list-style:none;
+  cursor:pointer;
+  padding:20px 22px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  color:var(--navy);
+}
+.mini-guide > summary::-webkit-details-marker{display:none}
+.mini-guide > summary span{
+  font-size:calc(22px * var(--font-scale));
+  font-weight:800;
+}
+.mini-guide > summary small{
+  font-size:calc(16px * var(--font-scale));
+  color:var(--muted);
+  font-weight:600;
+}
+.mini-guide > summary::after{
+  content:"Open guide +";
+  align-self:flex-start;
+  margin-top:8px;
+  font-size:calc(14px * var(--font-scale));
+  color:var(--sage-dark);
+  font-weight:800;
+}
+.mini-guide[open] > summary::after{content:"Close guide −"}
+.mini-guide-body{
+  border-top:1px solid #dbe5ea;
+  padding:22px;
+}
+.platform-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.platform-card{
+  background:#f7fbfe;
+  border:1px solid #c9dde9;
+  border-radius:16px;
+  padding:18px;
+}
+.platform-card h3{margin-top:0;color:var(--navy)}
+.platform-card li{margin-bottom:9px}
+.aiden-tip{
+  margin:20px 0;
+  border-left:6px solid var(--gold);
+  background:#fff8e8;
+  border-radius:10px;
+  padding:14px 16px;
+}
+.mini-guide-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+body.contrast .guide-start-card,
+body.contrast .mini-guide,
+body.contrast .platform-card{
+  background:#111 !important;
+  border-color:#666 !important;
+  color:#f5f5f5 !important;
+}
+body.contrast .guide-start-card strong,
+body.contrast .mini-guide > summary,
+body.contrast .platform-card h3{
+  color:#ffd166 !important;
+}
+body.contrast .guide-start-card span,
+body.contrast .mini-guide > summary small,
+body.contrast .guide-section-intro{
+  color:#f5f5f5 !important;
+}
+body.contrast .mini-guide-body{border-color:#666}
+body.contrast .aiden-tip{
+  background:#2a2100;
+  border-color:#ffd166;
+  color:#fff4c2;
+}
+body.contrast .mini-guide > summary::after{color:#9fc4ff}
+@media(max-width:800px){
+  .guide-start-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .platform-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .guide-start-grid{grid-template-columns:1fr}
+}
