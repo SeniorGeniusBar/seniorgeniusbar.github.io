@@ -180,3 +180,28 @@ body.contrast .help-form input,body.contrast .help-form select,body.contrast .he
 .community-links{margin-top:24px}.community-links .tile{background:#fff;border-color:#d9d0c1}.community-links .tile:nth-child(2){border-top:5px solid var(--sage-dark)}
 body.contrast .section-kicker,body.contrast .community-card .mini-label{background:#5ec98d;color:#04150c}.body.contrast .shared-help-strip{background:#111;border-color:#555}.body.contrast .remote-card,.body.contrast .community-card{background:#111;border-color:#555;color:#f5f5f5}
 @media(max-width:760px){.community-grid,.remote-grid{grid-template-columns:1fr}.shared-help-strip{align-items:flex-start}}
+
+
+/* Lower-key links to in-person communities on the public homepage. */
+.inperson-footer-section{padding-top:18px}
+.community-text-links{display:flex;justify-content:center;gap:14px;align-items:center;flex-wrap:wrap;margin:8px 0 0}
+.community-text-links a{font-size:calc(18px * var(--font-scale));text-decoration:none}
+.community-text-links span{color:var(--muted)}
+
+/* Avenue One visit calendar: preserves the program record without
+   making previous visits compete with the next upcoming session. */
+.visit-calendar-section{margin-top:44px;padding-top:20px;border-top:1px solid #e4dccf}
+.visit-calendar-details{background:rgba(255,255,255,.52);border:1px solid #ddd6c9}
+.visit-calendar-details > summary{color:var(--muted);font-size:calc(18px * var(--font-scale))}
+.visit-year{margin:18px 0 28px}
+.visit-year h3{color:var(--navy);margin:0 0 10px}
+.visit-month-grid{display:grid;grid-template-columns:repeat(6,minmax(88px,1fr));gap:10px}
+.visit-month{background:#fff;border:1px solid #e1d9cc;border-radius:14px;padding:10px;text-align:center;min-height:74px}
+.visit-month strong{display:block;color:var(--navy);font-size:calc(14px * var(--font-scale));margin-bottom:8px}
+.visit-dates{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.visit-date{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 6px;border-radius:999px;background:var(--sage);color:var(--sage-dark);font-weight:800;font-size:calc(13px * var(--font-scale))}
+.visit-none{color:#bbb}
+body.contrast .visit-month{background:#111;border-color:#555}
+body.contrast .visit-date{background:#5ec98d;color:#04150c}
+@media(max-width:800px){.visit-month-grid{grid-template-columns:repeat(3,minmax(88px,1fr))}}
+@media(max-width:480px){.visit-month-grid{grid-template-columns:repeat(2,minmax(88px,1fr))}}
