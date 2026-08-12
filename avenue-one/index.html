@@ -33,10 +33,21 @@
 <a class="tile" href="../resources.html"><h3>Resources</h3><p>Printable guides and trusted accessibility and scam-safety links.</p><p class="tile-cta">View Resources →</p></a>
 </div></section>
 <section id="eventHistory" class="visit-calendar-section">
-<div style="text-align:center"><span class="section-kicker">Community Record</span></div>
-<h2 class="section-title">Avenue One Visit Calendar</h2>
-<p style="text-align:center;max-width:700px;margin:0 auto 16px;color:var(--muted)">A simple record of Senior Genius Bar visits at Avenue One.</p>
-<details class="visit-calendar-details"><summary>View visit calendar</summary><div id="yearGroups" class="visit-calendar-years" style="margin-top:18px"></div></details>
+<div style="text-align:center"><span class="section-kicker">Community Calendar</span></div>
+<h2 class="section-title">Avenue One Calendar</h2>
+<p style="text-align:center;max-width:700px;margin:0 auto 16px;color:var(--muted)">Senior Genius Bar visit dates are highlighted.</p>
+<div class="interactive-calendar-card">
+  <div class="calendar-toolbar">
+    <button type="button" id="calPrev" class="calendar-nav" aria-label="Previous month">← Previous</button>
+    <h3 id="calMonthLabel" class="calendar-month-label"></h3>
+    <button type="button" id="calNext" class="calendar-nav" aria-label="Next month">Next →</button>
+  </div>
+  <div class="calendar-weekdays" aria-hidden="true">
+    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+  </div>
+  <div id="calGrid" class="calendar-grid" role="grid" aria-label="Avenue One Senior Genius Bar visit calendar"></div>
+  <p class="calendar-legend"><span class="calendar-dot"></span> Senior Genius Bar visit</p>
+</div>
 </section>
 </div>
 </main>
@@ -93,28 +104,103 @@ document.getElementById('upcomingGrid').innerHTML = upcoming.map(iso =>
 ).join('');
 document.getElementById('noUpcoming').style.display = 'none';
 
-const byYearMonth = {};
-past.forEach(iso => {
-  const [year, month, day] = iso.split('-');
-  if (!byYearMonth[year]) byYearMonth[year] = {};
-  if (!byYearMonth[year][month]) byYearMonth[year][month] = [];
-  byYearMonth[year][month].push(Number(day));
-});
-
-const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const years = Object.keys(byYearMonth).sort((a,b) => b.localeCompare(a));
-
-document.getElementById('yearGroups').innerHTML = years.map(year => {
-  const months = monthNames.map((name, idx) => {
-    const key = String(idx + 1).padStart(2,'0');
-    const days = (byYearMonth[year][key] || []).sort((a,b) => a-b);
-    const marks = days.length
-      ? days.map(day => `<span class="visit-date" title="${name} ${day}, ${year}">${day}</span>`).join('')
-      : '<span class="visit-none">—</span>';
-    return `<div class="visit-month"><strong>${name}</strong><div class="visit-dates">${marks}</div></div>`;
-  }).join('');
-  return `<div class="visit-year"><h3>${year}</h3><div class="visit-month-grid">${months}</div></div>`;
-}).join('');
 </script>
 
+
+<script>
+// Interactive Avenue One calendar -----------------------------------------
+(function(){
+  // Start with the actual recorded Avenue One visits from avenue-one-events.js.
+  const allVisitDates = new Set(
+    (typeof avenueOneEvents !== 'undefined' ? avenueOneEvents : []).filter(Boolean)
+  );
+
+  // Add the recurring Sunday schedule from Aug. 16 through Dec. 31, 2026.
+  // This affects the calendar only. The "Upcoming Sessions" section above
+  // still shows only the next two dates.
+  let future = new Date("2026-08-16T12:00:00");
+  const calendarEnd = new Date("2026-12-31T12:00:00");
+  while (future <= calendarEnd) {
+    const iso =
+      `${future.getFullYear()}-${String(future.getMonth()+1).padStart(2,"0")}-${String(future.getDate()).padStart(2,"0")}`;
+    allVisitDates.add(iso);
+    future.setDate(future.getDate() + 14);
+  }
+
+  const minMonth = new Date("2023-07-01T12:00:00");
+  const maxMonth = new Date("2026-12-01T12:00:00");
+  const now = new Date();
+  let current = new Date(now.getFullYear(), now.getMonth(), 1, 12);
+
+  if (current < minMonth) current = new Date(minMonth);
+  if (current > maxMonth) current = new Date(maxMonth);
+
+  const label = document.getElementById("calMonthLabel");
+  const grid = document.getElementById("calGrid");
+  const prev = document.getElementById("calPrev");
+  const next = document.getElementById("calNext");
+
+  function sameMonth(a,b){
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+  }
+
+  function render(){
+    const y = current.getFullYear();
+    const m = current.getMonth();
+
+    label.textContent = current.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+    prev.disabled = sameMonth(current,minMonth);
+    next.disabled = sameMonth(current,maxMonth);
+
+    grid.innerHTML = "";
+    const firstDay = new Date(y,m,1,12).getDay();
+    const daysInMonth = new Date(y,m+1,0,12).getDate();
+
+    for(let i=0;i<firstDay;i++){
+      const blank=document.createElement("span");
+      blank.className="calendar-cell calendar-blank";
+      blank.setAttribute("aria-hidden","true");
+      grid.appendChild(blank);
+    }
+
+    for(let day=1; day<=daysInMonth; day++){
+      const iso =
+        `${y}-${String(m+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      const cell=document.createElement("span");
+      cell.className="calendar-cell";
+      cell.setAttribute("role","gridcell");
+
+      const num=document.createElement("span");
+      num.className="calendar-day-number";
+      num.textContent=day;
+
+      const friendlyMonth = current.toLocaleDateString("en-US",{month:"long"});
+      if(allVisitDates.has(iso)){
+        cell.classList.add("has-visit");
+        cell.setAttribute("aria-label", `${friendlyMonth} ${day}, ${y} — Senior Genius Bar visit`);
+      } else {
+        cell.setAttribute("aria-label", `${friendlyMonth} ${day}, ${y}`);
+      }
+      cell.appendChild(num);
+      grid.appendChild(cell);
+    }
+  }
+
+  prev.addEventListener("click",()=>{
+    if(!sameMonth(current,minMonth)){
+      current=new Date(current.getFullYear(),current.getMonth()-1,1,12);
+      render();
+    }
+  });
+
+  next.addEventListener("click",()=>{
+    if(!sameMonth(current,maxMonth)){
+      current=new Date(current.getFullYear(),current.getMonth()+1,1,12);
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
 </body></html>
