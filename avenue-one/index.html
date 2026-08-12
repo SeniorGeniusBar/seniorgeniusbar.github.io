@@ -22,22 +22,22 @@
 <div class="container"><section class="page-head"><h2>Avenue One Community</h2>
 <p>Friendly technology support for Avenue One residents.</p></section>
 
-<section><div class="card notice">
-<p id="summaryLine" style="font-size:1.15rem;text-align:center;color:var(--navy);font-weight:700">Loading…</p>
-<p style="text-align:center;color:var(--muted);max-width:640px;margin:8px auto 0">Every session below was a chance to sit down with a neighbor, answer questions, and make technology feel a little less intimidating.</p>
-</div></section>
-
 <section id="upcomingSection"><h2 class="section-title">Upcoming Sessions</h2>
 <div class="session-grid" id="upcomingGrid"></div>
 <p id="noUpcoming" style="display:none;text-align:center;color:var(--muted)">No upcoming sessions are scheduled right now — check back soon.</p>
 </section>
 
 <section class="community-links"><div style="text-align:center"><span class="section-kicker">Between Visits</span></div><h2 class="section-title">More Ways to Get Help</h2><div class="grid">
-<a class="tile" href="../request-help.html#remote-options"><h3>Remote Help</h3><p>Ask a question, send a photo, or request phone or video help between sessions.</p><p class="tile-cta">See Remote Help Options →</p></a>
+<a class="tile" href="../request-help.html#remote-options"><h3>Remote Help</h3><p>Email a question, or send a photo, screenshot, or short video between sessions.</p><p class="tile-cta">See Remote Help Options →</p></a>
 <a class="tile" href="../guides.html"><h3>Free Tech Guides</h3><p>Use the large-print picture guides anytime, on any device.</p><p class="tile-cta">View Guides →</p></a>
 <a class="tile" href="../resources.html"><h3>Resources</h3><p>Printable guides and trusted accessibility and scam-safety links.</p><p class="tile-cta">View Resources →</p></a>
 </div></section>
-<section id="eventHistory" class="past-sessions"><details><summary>Past Avenue One Sessions</summary><div id="yearGroups" style="margin-top:18px"></div></details></section>
+<section id="eventHistory" class="visit-calendar-section">
+<div style="text-align:center"><span class="section-kicker">Community Record</span></div>
+<h2 class="section-title">Avenue One Visit Calendar</h2>
+<p style="text-align:center;max-width:700px;margin:0 auto 16px;color:var(--muted)">A simple record of Senior Genius Bar visits at Avenue One.</p>
+<details class="visit-calendar-details"><summary>View visit calendar</summary><div id="yearGroups" class="visit-calendar-years" style="margin-top:18px"></div></details>
+</section>
 </div>
 </main>
 
@@ -48,10 +48,10 @@
 <script src="../assets/avenue-one-events.js"></script>
 <script>
 /* This page reads the SAME list in avenue-one-events.js for both the
-   "Upcoming Sessions" box and the "Session History" archive below.
+   "Upcoming Sessions" box and the "Visit Calendar" record below.
    Add a date as soon as you schedule it — even months ahead — and it
    will show under Upcoming automatically. Once that date passes, it
-   quietly moves itself down into the yearly history. Nothing ever
+   quietly becomes part of the visit calendar. Nothing ever
    needs to be moved or re-entered by hand.
 
    To rename the activity (shown in Upcoming Sessions and as each
@@ -88,32 +88,32 @@ function nextRecurringSessions(){
 }
 const upcoming = nextRecurringSessions();
 
-document.getElementById('summaryLine').textContent =
-  `${all.length} ${ACTIVITY_NAME} sessions since ${formatFriendly([...all].sort()[0])}`;
-
 document.getElementById('upcomingGrid').innerHTML = upcoming.map(iso =>
   `<div class="session"><strong>${formatFriendly(iso)}</strong><span><b>${AVENUE_ONE.time}</b><br>${AVENUE_ONE.location}</span></div>`
 ).join('');
 document.getElementById('noUpcoming').style.display = 'none';
 
-const byYear = {};
+const byYearMonth = {};
 past.forEach(iso => {
-  const year = iso.slice(0, 4);
-  if (!byYear[year]) byYear[year] = [];
-  byYear[year].push(iso);
+  const [year, month, day] = iso.split('-');
+  if (!byYearMonth[year]) byYearMonth[year] = {};
+  if (!byYearMonth[year][month]) byYearMonth[year][month] = [];
+  byYearMonth[year][month].push(Number(day));
 });
 
-const years = Object.keys(byYear).sort((a, b) => b - a);
+const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const years = Object.keys(byYearMonth).sort((a,b) => b.localeCompare(a));
+
 document.getElementById('yearGroups').innerHTML = years.map(year => {
-  const count = byYear[year].length;
-  const dateList = byYear[year].map(iso => `<li>${formatFriendly(iso)}</li>`).join('');
-  return `
-  <div class="faq" style="margin-bottom:22px">
-    <details>
-      <summary>${year} &mdash; ${count} ${ACTIVITY_NAME} session${count > 1 ? 's' : ''}</summary>
-      <ul style="margin:10px 0 4px;padding-left:22px;line-height:1.9">${dateList}</ul>
-    </details>
-  </div>`;
+  const months = monthNames.map((name, idx) => {
+    const key = String(idx + 1).padStart(2,'0');
+    const days = (byYearMonth[year][key] || []).sort((a,b) => a-b);
+    const marks = days.length
+      ? days.map(day => `<span class="visit-date" title="${name} ${day}, ${year}">${day}</span>`).join('')
+      : '<span class="visit-none">—</span>';
+    return `<div class="visit-month"><strong>${name}</strong><div class="visit-dates">${marks}</div></div>`;
+  }).join('');
+  return `<div class="visit-year"><h3>${year}</h3><div class="visit-month-grid">${months}</div></div>`;
 }).join('');
 </script>
 
