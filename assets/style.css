@@ -626,3 +626,156 @@ body.contrast .picture-guide-bridge a{color:#9fc4ff}
   .guide-choice-card{min-height:96px}
   .picture-guide-bridge a{margin-left:0;width:100%}
 }
+
+
+/* ============================================================
+   GUIDE READABILITY + FINAL HIGH-CONTRAST PASS
+   ============================================================ */
+
+/* The generic details rule gives summary::after a navy pill.
+   These explicit colors prevent dark-green-on-navy text. */
+.mini-guide > summary::after{
+  background:var(--navy) !important;
+  color:#fff !important;
+  border:2px solid var(--navy);
+  padding:8px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.mini-guide[open] > summary::after{
+  background:var(--green) !important;
+  color:#fff !important;
+  border-color:var(--green);
+}
+
+/* Stronger contrast for the quick-start cards in normal mode. */
+.guide-choice-card{
+  border-color:#8cb9d8;
+}
+.guide-choice-copy strong{color:#123a64}
+.guide-choice-copy small{color:#394956}
+.guide-choice-card:hover,
+.guide-choice-card:focus-visible{
+  background:#eaf4fb;
+  border-color:#163a5f;
+}
+
+/* High contrast: every new guide element has explicit foreground/background. */
+body.contrast .guide-choice-card,
+body.contrast .mini-guide,
+body.contrast .platform-card,
+body.contrast .picture-guide-bridge,
+body.contrast .guide-card{
+  background:#0b0b0b !important;
+  color:#fff !important;
+  border-color:#d6d6d6 !important;
+}
+body.contrast .guide-choice-copy strong,
+body.contrast .mini-guide > summary span,
+body.contrast .platform-card h3,
+body.contrast .guide-card h3{
+  color:#ffd166 !important;
+}
+body.contrast .guide-choice-copy small,
+body.contrast .mini-guide > summary small,
+body.contrast .platform-card,
+body.contrast .guide-card .caption,
+body.contrast .guide-card .step-count,
+body.contrast .guide-section-intro{
+  color:#f5f5f5 !important;
+}
+body.contrast .guide-choice-icon{
+  background:#222 !important;
+  color:#fff !important;
+}
+body.contrast .mini-guide > summary::after{
+  background:#ffd166 !important;
+  color:#0a1420 !important;
+  border-color:#ffd166 !important;
+}
+body.contrast .mini-guide[open] > summary::after{
+  background:#5ec98d !important;
+  color:#04150c !important;
+  border-color:#5ec98d !important;
+}
+body.contrast .aiden-tip{
+  background:#2a2100 !important;
+  color:#fff4c2 !important;
+  border-color:#ffd166 !important;
+}
+body.contrast .picture-guide-bridge strong{color:#ffd166 !important}
+body.contrast .picture-guide-bridge a{color:#b8d7ff !important}
+
+/* Picture-guide card buttons */
+body.contrast .chip-btn{
+  background:#000 !important;
+  color:#fff !important;
+  border:2px solid #fff !important;
+}
+body.contrast .chip-btn:hover,
+body.contrast .chip-btn:focus-visible{
+  background:#ffd166 !important;
+  color:#0a1420 !important;
+  border-color:#ffd166 !important;
+}
+
+/* Modal contrast */
+body.contrast .modal{
+  background:#0b0b0b !important;
+  color:#fff !important;
+  border:2px solid #d6d6d6;
+}
+body.contrast .modal h3,
+body.contrast #modalTitle{color:#ffd166 !important}
+body.contrast .modal-caption,
+body.contrast #stepDots{color:#fff !important}
+body.contrast .modal-close,
+body.contrast .modal-nav button{
+  background:#000 !important;
+  color:#fff !important;
+  border:2px solid #fff !important;
+}
+body.contrast .modal-nav button.primary{
+  background:#ffd166 !important;
+  color:#0a1420 !important;
+  border-color:#ffd166 !important;
+}
+body.contrast .modal-nav button:disabled{
+  color:#aaa !important;
+  border-color:#777 !important;
+}
+body.contrast .modal-backdrop{
+  background:rgba(0,0,0,.88) !important;
+}
+
+/* Forms and native controls in contrast mode */
+body.contrast input,
+body.contrast select,
+body.contrast textarea{
+  background:#000 !important;
+  color:#fff !important;
+  border:2px solid #ddd !important;
+}
+body.contrast input::placeholder,
+body.contrast textarea::placeholder{color:#ccc !important}
+body.contrast option{background:#000;color:#fff}
+
+/* General safety/readability fallback for all details */
+body.contrast details{
+  background:#0b0b0b !important;
+  color:#fff !important;
+  border-color:#d6d6d6 !important;
+}
+body.contrast summary{color:#ffd166 !important}
+
+/* Print and secondary actions */
+body.contrast .btn.secondary{
+  background:#000 !important;
+  color:#fff !important;
+  border-color:#fff !important;
+}
+body.contrast .btn.secondary:hover,
+body.contrast .btn.secondary:focus-visible{
+  background:#fff !important;
+  color:#000 !important;
+}

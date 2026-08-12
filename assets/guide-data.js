@@ -898,7 +898,10 @@ function renderThumb(idx){
     </div>
   </div>`;
 }
-document.getElementById('guideGrid').innerHTML = guides.map((g,i)=>renderThumb(i)).join('');
+const featuredGuideIndexes = new Set([1,4,6,7,8,9]);
+document.getElementById('guideGrid').innerHTML = guides
+  .map((g,i)=> featuredGuideIndexes.has(i) ? '' : renderThumb(i))
+  .join('');
 function openModal(idx, stepIdx){
   currentGuide = idx; currentStep = stepIdx || 0;
   document.getElementById('modalBackdrop').classList.add('open');
