@@ -178,7 +178,7 @@ body.contrast .help-form input,body.contrast .help-form select,body.contrast .he
 .check-list{list-style:none;padding:0;margin:16px 0}.check-list li{position:relative;padding-left:34px;margin:12px 0}.check-list li:before{content:'✓';position:absolute;left:0;top:0;background:var(--sage);color:var(--sage-dark);width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:900}
 .quick-fixes details{border-color:#d9d0c1}.quick-fixes summary::after{content:'+';background:transparent;color:var(--sage-dark);font-size:1.4em;padding:0 6px}.quick-fixes details[open] summary::after{content:'−';background:transparent;color:var(--sage-dark)}
 .community-links{margin-top:24px}.community-links .tile{background:#fff;border-color:#d9d0c1}.community-links .tile:nth-child(2){border-top:5px solid var(--sage-dark)}
-body.contrast .section-kicker,body.contrast .community-card .mini-label{background:#5ec98d;color:#04150c}.body.contrast .shared-help-strip{background:#111;border-color:#555}.body.contrast .remote-card,.body.contrast .community-card{background:#111;border-color:#555;color:#f5f5f5}
+body.contrast .section-kicker,body.contrast .community-card .mini-label{background:#5ec98d;color:#04150c}body.contrast .shared-help-strip{background:#111;border-color:#555}body.contrast .remote-card,body.contrast .community-card{background:#111;border-color:#555;color:#f5f5f5}
 @media(max-width:760px){.community-grid,.remote-grid{grid-template-columns:1fr}.shared-help-strip{align-items:flex-start}}
 
 
@@ -274,4 +274,136 @@ body.contrast .calendar-day-number{color:#fff}
   #calPrev{grid-area:prev} #calNext{grid-area:next}
   .calendar-cell{min-height:48px}
   .calendar-day-number{width:34px;height:34px}
+}
+
+
+/* ============================================================
+   FINAL ACCESSIBILITY + SENIOR-USABILITY PASS
+   ============================================================ */
+
+/* Screen-reader/keyboard skip link */
+.skip-link{
+  position:absolute;
+  left:12px;
+  top:-60px;
+  z-index:9999;
+  background:#fff;
+  color:var(--navy);
+  border:3px solid var(--navy);
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:800;
+  text-decoration:none;
+}
+.skip-link:focus{top:12px}
+body.contrast .skip-link{background:#000;color:#fff;border-color:#ffd166}
+
+/* Strong keyboard focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:3px;
+}
+body.contrast a:focus-visible,
+body.contrast button:focus-visible,
+body.contrast input:focus-visible,
+body.contrast select:focus-visible,
+body.contrast textarea:focus-visible,
+body.contrast summary:focus-visible{
+  outline-color:#ffd166;
+}
+
+/* Tap targets */
+nav a,.btn,.chip-btn,.calendar-nav,.accessibility button{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* High contrast coverage for newer components */
+body.contrast .shared-help-strip,
+body.contrast .remote-card,
+body.contrast .community-card,
+body.contrast .interactive-calendar-card,
+body.contrast .visit-calendar-details,
+body.contrast .community-bubble{
+  background:#111 !important;
+  border-color:#666 !important;
+  color:#f5f5f5 !important;
+}
+body.contrast .shared-help-strip h3,
+body.contrast .remote-card h3,
+body.contrast .community-card h3,
+body.contrast .card h2,
+body.contrast .card h3,
+body.contrast .calendar-month-label{
+  color:#ffd166 !important;
+}
+body.contrast .shared-help-strip p,
+body.contrast .remote-card p,
+body.contrast .community-card p,
+body.contrast .calendar-legend,
+body.contrast .calendar-weekdays,
+body.contrast .community-bubble,
+body.contrast [style*="color:var(--muted)"]{
+  color:#f5f5f5 !important;
+}
+body.contrast .remote-card .best-for{
+  background:#2a2100;
+  border-color:#ffd166;
+  color:#fff4c2;
+}
+body.contrast .remote-card .card-link,
+body.contrast .community-text-links a{
+  color:#9fc4ff !important;
+}
+body.contrast .calendar-nav{
+  background:#000;
+  color:#fff;
+  border-color:#fff;
+}
+body.contrast .calendar-nav:disabled{color:#aaa;border-color:#777}
+body.contrast .calendar-cell{
+  background:#111;
+  border-color:#555;
+}
+body.contrast .calendar-cell.has-visit{background:#214c39}
+body.contrast .calendar-cell.has-visit .calendar-day-number{background:#5ec98d;color:#04150c}
+body.contrast .calendar-day-number{color:#fff}
+body.contrast .calendar-dot{background:#5ec98d}
+body.contrast .quick-fixes summary::after{color:#ffd166}
+body.contrast .check-list li:before{background:#5ec98d;color:#04150c}
+
+/* Make community links clearer and less crowded */
+.community-bubble-links{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.community-bubble{
+  min-width:230px;
+  min-height:60px;
+  padding:14px 24px;
+  border:2px solid var(--navy);
+  border-radius:999px;
+  background:#fff;
+  color:var(--navy);
+  text-decoration:none;
+  font-weight:800;
+  text-align:center;
+}
+
+/* Guide-print utility */
+.print-guide{
+  margin-top:14px;
+}
+@media print{
+  .skip-link,.accessibility,nav,.print-guide,.site-footer-actions{display:none !important}
 }

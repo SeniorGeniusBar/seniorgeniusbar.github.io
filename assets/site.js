@@ -10,7 +10,9 @@ function applyContrast(){
   document.body.classList.toggle("contrast", contrastOn);
   localStorage.setItem("contrastMode", contrastOn ? "on" : "off");
   const btn = document.getElementById("contrastToggle");
-  if(btn){ btn.textContent = contrastOn ? "Normal Contrast" : "High Contrast"; }
+  if(btn){ btn.textContent = contrastOn ? "Normal Contrast" : "High Contrast"; btn.setAttribute("aria-pressed", contrastOn ? "true" : "false"); }
 }
 function toggleContrast(){ contrastOn = !contrastOn; applyContrast(); }
 applyContrast();
+
+function printPageGuide(){ window.print(); }
