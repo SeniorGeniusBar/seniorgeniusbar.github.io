@@ -19,44 +19,56 @@
 </nav></header>
 
 <main>
-<div class="container"><section class="page-head"><h2>Ask a Technology Question</h2>
-<p>Send a basic question and I will respond when available.</p></section>
-<section><div class="card">
-<p><strong>For now, help requests are handled by email.</strong> Fill in what you can below — when you tap the button, it will open your email app with everything already filled in, ready to send.</p>
+<div class="container">
+<section class="page-head"><span class="section-kicker">Between Visits</span><h2>Get Help Remotely</h2>
+<p>Have a simple technology question before the next session? Choose the option that feels easiest. Basic remote help is free and available as Aiden's schedule allows.</p></section>
+
+<section id="remote-options"><div class="remote-grid">
+<div class="remote-card"><h3>Ask a Question</h3><span class="best-for">Best for: something you can describe</span><p>Use the short form below to explain what is happening. It opens an email to <strong>seniorgeniusbar@gmail.com</strong> with your details filled in.</p><a class="card-link" href="#help-form">Go to the Help Form →</a></div>
+<div class="remote-card"><h3>Send a Photo</h3><span class="best-for">Best for: confusing screens or error messages</span><p>Take a photo or screenshot of the problem and attach it to an email. Never include passwords, financial information, or verification codes.</p><a class="card-link" href="mailto:seniorgeniusbar@gmail.com?subject=Senior%20Genius%20Bar%20-%20Photo%20Help">Email a Photo →</a></div>
+<div class="remote-card"><h3>Request a Call</h3><span class="best-for">Best for: when talking it through is easier</span><p>Use the help form and write “Please call me” along with a good time to reach you. Aiden will respond to arrange a time.</p><a class="card-link" href="#help-form">Request a Call →</a></div>
+<div class="remote-card"><h3>Request Video Help</h3><span class="best-for">Best for: when Aiden needs to see what you see</span><p>Request a FaceTime or Zoom session. You can point your camera at the device while Aiden guides you. Senior Genius Bar will never ask to remotely control your device or request your password.</p><a class="card-link" href="#help-form">Request Video Help →</a></div>
+</div></section>
+
+<section><div class="card" style="border-left:8px solid var(--sage-dark)"><span class="section-kicker">Before You Reach Out</span><h2 style="color:var(--navy);margin-top:0">A Few Things That Help</h2><ul class="check-list">
+<li>Have your device charged and turned on.</li>
+<li>Describe what happened in your own words — for example, “the screen went black” or “I can't find my photos.”</li>
+<li>If it's easy, a photo or screenshot of the screen can help.</li>
+<li>Never send passwords, verification codes, banking information, Social Security numbers, or medical information.</li>
+</ul></div></section>
+
+<section id="help-form"><div class="card"><span class="section-kicker">Ask Aiden</span><h2 class="section-title">Send a Help Request</h2>
+<p>Fill in what you can below. When you tap the button, your email app will open with the information already filled in, ready to send to the Senior Genius Bar email.</p>
 <form class="help-form" onsubmit="return false">
-<label>Your First Name
-<input type="text" id="hrName" placeholder="First name"></label>
-<label>Device Type
-<select id="hrDeviceType">
-<option value="">Choose one</option>
-<option>Phone</option>
-<option>Tablet</option>
-<option>Computer</option>
-<option>Other</option>
-</select></label>
-<label>Device Brand
-<select id="hrDeviceBrand">
-<option value="">Choose one</option>
-<option>Apple / Mac</option>
-<option>Android</option>
-<option>Windows / PC</option>
-<option>Other / Not sure</option>
-</select></label>
-<label>Model or Year (optional)
-<input type="text" id="hrDeviceDetails" placeholder="e.g. iPhone 13 — okay to leave blank"></label>
-<label>I am a...
-<select id="hrRole">
-<option value="">Choose one</option>
-<option>Family member</option>
-<option>Community visitor</option>
-<option>Atria resident</option>
-</select></label>
-<label>Your Question
-<textarea id="hrQuestion" rows="4" placeholder="Briefly describe what you need help with"></textarea></label>
+<label>Your First Name<input type="text" id="hrName" placeholder="First name"></label>
+<label>Device Type<select id="hrDeviceType"><option value="">Choose one</option><option>Phone</option><option>Tablet</option><option>Computer</option><option>Other</option></select></label>
+<label>Device Brand<select id="hrDeviceBrand"><option value="">Choose one</option><option>Apple / Mac</option><option>Android</option><option>Windows / PC</option><option>Other / Not sure</option></select></label>
+<label>Model or Year (optional)<input type="text" id="hrDeviceDetails" placeholder="e.g. iPhone 13 — okay to leave blank"></label>
+<label>I am a...<select id="hrRole"><option value="">Choose one</option><option>Avenue One resident</option><option>Atria resident or family member</option><option>Family member</option><option>Community visitor</option></select></label>
+<label>How would you like help?<select id="hrHelpType"><option value="">Choose one</option><option>Email reply</option><option>Phone call</option><option>Video help</option><option>Not sure — recommend what is easiest</option></select></label>
+<label>Your Question<textarea id="hrQuestion" rows="4" placeholder="Briefly describe what you need help with"></textarea></label>
 <button type="button" class="btn green" onclick="sendHelpRequest()">Email a Help Request</button>
 </form>
-<p class="note">Do not include passwords, banking information, medical information, Social Security numbers, or verification codes.</p>
-</div></section></div>
+<p class="note">Please do not include passwords, banking information, medical information, Social Security numbers, or verification codes.</p>
+</div></section>
+
+<section class="quick-fixes"><div style="text-align:center"><span class="section-kicker">Try It Yourself</span></div><h2 class="section-title">Quick Tips & Common Fixes</h2>
+<p style="text-align:center;max-width:760px;margin:0 auto 20px">A few things you can often solve in under a minute. If the steps don't match what you see, stop and ask — devices can look different.</p>
+<details><summary>My screen is too dim, or the text is too small</summary><p>On many phones and tablets, swipe down from the top of the screen to find brightness controls. For text size, look in <strong>Settings</strong> under <strong>Display</strong> or <strong>Accessibility</strong> for “Text Size” or “Larger Text.”</p><p><a href="guides.html">See the full picture guides →</a></p></details>
+<details><summary>My phone keeps buzzing with notifications</summary><p>Open <strong>Settings → Notifications</strong>. You can usually turn notifications down app by app without changing the rest of your phone.</p></details>
+<details><summary>I can't hear my phone ring or my videos</summary><p>Check the physical volume buttons first and make sure the device isn't in silent mode. Then check the sound settings on the device.</p></details>
+<details><summary>I can't find a photo I know I took</summary><p>Open the Photos app and look in <strong>Recents</strong> or <strong>All Photos</strong>. If it still isn't there, ask for help before changing or deleting anything.</p></details>
+<details><summary>I forgot my password or can't log in</summary><p>Look for a “Forgot Password” link on the sign-in screen. Avoid guessing repeatedly because some accounts temporarily lock after too many attempts. Never send your password to Senior Genius Bar.</p></details>
+<details><summary>An app or update is asking me to do something confusing</summary><p>It's okay to stop before tapping anything you are unsure about, especially if it asks for a password, payment, verification code, or personal information.</p></details>
+</section>
+
+<section><div style="text-align:center"><span class="section-kicker">Good to Know</span></div><h2 class="section-title">Common Questions</h2><div class="faq">
+<details><summary>Is this really free?</summary><p>Yes. Senior Genius Bar is a volunteer project. Basic remote technology help is free as Aiden's schedule allows. In-person sessions are offered through the community pages shown on this site.</p></details>
+<details><summary>What if I don't know how to take a screenshot?</summary><p>That's completely fine. Describe what you see in your own words, or request a call. There is no need to know technical terms.</p></details>
+<details><summary>What kinds of problems can be solved remotely?</summary><p>Many simple problems can be handled remotely: text size, sound, photos, video calls, settings, notifications, and explaining a confusing screen. More involved issues may be better handled in person.</p></details>
+<details><summary>Will you ever ask for my password or control my device?</summary><p>No. Senior Genius Bar will never ask you to send a password, verification code, banking information, or Social Security number, and will not ask to remotely control your device.</p></details>
+</div></section>
+</div>
 </main>
 
 <footer><p><strong>Senior Genius Bar</strong></p>
@@ -70,6 +82,7 @@ function sendHelpRequest(){
   const deviceBrand = document.getElementById('hrDeviceBrand').value || '(not provided)';
   const deviceDetails = document.getElementById('hrDeviceDetails').value.trim();
   const role = document.getElementById('hrRole').value || '(not provided)';
+  const helpType = document.getElementById('hrHelpType').value || '(not provided)';
   const question = document.getElementById('hrQuestion').value.trim() || '(not provided)';
   const deviceLine = deviceType + ' — ' + deviceBrand + (deviceDetails ? ' (' + deviceDetails + ')' : '');
   const subject = encodeURIComponent('Senior Genius Bar Help Request');
@@ -77,6 +90,7 @@ function sendHelpRequest(){
     'Name: ' + name + '\n' +
     'Device: ' + deviceLine + '\n' +
     'I am a: ' + role + '\n' +
+    'Preferred help: ' + helpType + '\n' +
     'Question: ' + question
   );
   window.location.href = 'mailto:seniorgeniusbar@gmail.com?subject=' + subject + '&body=' + body;
