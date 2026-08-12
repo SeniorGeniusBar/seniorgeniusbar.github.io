@@ -205,3 +205,73 @@ body.contrast .visit-month{background:#111;border-color:#555}
 body.contrast .visit-date{background:#5ec98d;color:#04150c}
 @media(max-width:800px){.visit-month-grid{grid-template-columns:repeat(3,minmax(88px,1fr))}}
 @media(max-width:480px){.visit-month-grid{grid-template-columns:repeat(2,minmax(88px,1fr))}}
+
+
+/* Homepage community links — large, senior-friendly bubble buttons */
+.community-bubble-links{
+  display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-top:18px;
+}
+.community-bubble{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:220px; min-height:58px; padding:14px 22px;
+  border:2px solid var(--navy); border-radius:999px;
+  background:#fff; color:var(--navy); text-decoration:none; font-weight:800;
+  font-size:calc(18px * var(--font-scale));
+}
+.community-bubble:hover{background:var(--sky)}
+body.contrast .community-bubble{background:#111;color:#fff;border-color:#fff}
+
+/* Interactive Avenue One month-by-month calendar */
+.interactive-calendar-card{
+  background:#fff; border:1px solid #dfd5c5; border-radius:22px;
+  padding:20px; box-shadow:0 6px 18px rgba(0,0,0,.06);
+  max-width:860px; margin:0 auto;
+}
+.calendar-toolbar{
+  display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; margin-bottom:16px;
+}
+.calendar-month-label{
+  margin:0; text-align:center; color:var(--navy); font-size:calc(24px * var(--font-scale));
+}
+.calendar-nav{
+  background:#fff; color:var(--navy); border:2px solid var(--navy);
+  border-radius:999px; padding:10px 16px; font-weight:800; cursor:pointer;
+}
+.calendar-nav:disabled{opacity:.35; cursor:not-allowed}
+.calendar-weekdays,.calendar-grid{
+  display:grid; grid-template-columns:repeat(7,1fr); gap:8px;
+}
+.calendar-weekdays{
+  color:var(--muted); font-weight:800; text-align:center; margin-bottom:8px;
+  font-size:calc(14px * var(--font-scale));
+}
+.calendar-cell{
+  min-height:64px; border:1px solid #e7dfd2; border-radius:14px;
+  display:flex; align-items:center; justify-content:center; background:#fff;
+}
+.calendar-blank{border-color:transparent;background:transparent}
+.calendar-day-number{
+  width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;color:var(--text);
+}
+.calendar-cell.has-visit{background:var(--sage)}
+.calendar-cell.has-visit .calendar-day-number{
+  background:var(--sage-dark); color:#fff; font-weight:900;
+}
+.calendar-legend{
+  display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);margin:16px 0 0;
+}
+.calendar-dot{
+  width:16px;height:16px;border-radius:4px;background:var(--sage-dark);display:inline-block;
+}
+body.contrast .interactive-calendar-card{background:#111;border-color:#555}
+body.contrast .calendar-cell{background:#111;border-color:#555}
+body.contrast .calendar-cell.has-visit{background:#214c39}
+body.contrast .calendar-day-number{color:#fff}
+@media(max-width:650px){
+  .calendar-toolbar{grid-template-columns:1fr 1fr;grid-template-areas:"label label" "prev next"}
+  .calendar-month-label{grid-area:label}
+  #calPrev{grid-area:prev} #calNext{grid-area:next}
+  .calendar-cell{min-height:48px}
+  .calendar-day-number{width:34px;height:34px}
+}
