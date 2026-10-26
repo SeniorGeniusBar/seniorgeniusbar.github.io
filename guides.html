@@ -1,19 +1,19 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Tech Guides | Senior Genius Bar</title>
+<title>Free Tech Guides | Senior Technology Support Program</title>
 <meta name="description" content="Free senior-friendly technology guides for larger text, accessibility, video calls, texting, email, photos, Wi-Fi, passwords, and scam safety.">
-<meta property="og:title" content="Free Tech Guides | Senior Genius Bar">
+<meta property="og:title" content="Free Tech Guides | Senior Technology Support Program">
 <meta property="og:description" content="Free senior-friendly technology guides for larger text, accessibility, video calls, texting, email, photos, Wi-Fi, passwords, and scam safety.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://seniorgeniusbar.github.io/guides.html">
 <meta property="og:image" content="https://seniorgeniusbar.github.io/assets/aiden.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23163a5f'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Arial' fill='white' text-anchor='middle' font-weight='700'%3ESG%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23163a5f'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Arial' fill='white' text-anchor='middle' font-weight='700'%3EST%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/style.css"></head><body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="accessibility"><strong>Text size:</strong>
 <button onclick="changeTextSize(-1)">A− Smaller</button><button onclick="changeTextSize(1)">A+ Bigger</button><button onclick="resetTextSize()">Reset</button>
 <button id="contrastToggle" onclick="toggleContrast()">High Contrast</button></div>
-<header><div class="brand"><h1>Senior Genius Bar</h1><p>Friendly, patient technology help for older adults.</p></div>
+<header><div class="brand"><h1>Senior Technology Support Program</h1><p>Friendly, patient technology help for older adults.</p></div>
 <nav>
 <a href="index.html">Home</a><a href="about.html">About</a><a href="guides.html">Free Guides</a>
 <a href="request-help.html">Ask a Question</a><a href="resources.html">Resources</a><a href="avenue-one/index.html">Avenue One</a><a href="atria/index.html">Atria Residents</a>
@@ -230,6 +230,24 @@
       <div class="mini-guide-actions"><button class="btn secondary" type="button" onclick="printMiniGuide('mini-spoken')">Print This Guide</button><a class="btn" href="request-help.html">Still stuck? Ask Aiden</a></div>
     </div>
   </details>
+
+  <details class="mini-guide" id="mini-icons">
+    <summary><span class="mini-guide-icon" aria-hidden="true">🔣</span><span class="mini-guide-number" aria-hidden="true">6</span><span class="mini-guide-title"><strong>What Do These Icons Mean?</strong><small>A plain-English guide to the little pictures and symbols on your screen.</small></span></summary>
+    <div class="mini-guide-body">
+      <p>Phones and tablets use small pictures, called icons, instead of words to save space. Once you know what one means, you'll recognize it anywhere — it usually looks the same in every app. A few icons look slightly different on an iPhone than on an Android phone; where that's true, both are shown below.</p>
+
+      <div class="icon-core-box">
+        <div class="icon-core-label">Learn these three first</div>
+        <div class="icon-core-grid" id="iconCoreGrid"></div>
+      </div>
+
+      <div id="iconGroupsHolder"></div>
+
+      <div class="aiden-tip"><strong>Aiden's Tip:</strong> You don't need to memorize these. Just come back to this guide anytime you see an icon you don't recognize.</div>
+      <div class="mini-guide-actions"><button class="btn secondary" type="button" onclick="printMiniGuide('mini-icons')">Print This Guide</button><button class="btn secondary" type="button" onclick="speakAllIcons()">🔊 Read Aloud</button><a class="btn" href="request-help.html">Still stuck? Ask Aiden</a></div>
+    </div>
+  </details>
+
   <div class="accessibility-master-tip"><strong>💡 Aiden’s Tip:</strong> Try one setting at a time. Keep the ones that make your phone or tablet easiest for you to see and use.</div>
   <div class="picture-guide-jump">
     <div class="jump-icon" aria-hidden="true">▤</div>
@@ -254,7 +272,7 @@
 </section></div>
 </main>
 
-<footer><p><strong>Senior Genius Bar</strong></p>
+<footer><p><strong>Senior Technology Support Program</strong></p>
 <p>Helping seniors stay connected to the people and moments that matter most.</p>
 <p><a href="mailto:seniorgeniusbar@gmail.com">seniorgeniusbar@gmail.com</a></p></footer>
 
@@ -278,7 +296,7 @@
 function printMiniGuide(id){
   const section = document.getElementById(id);
   if(!section) return;
-  const title = section.querySelector('summary span')?.textContent || 'Senior Genius Bar Guide';
+  const title = section.querySelector('summary span')?.textContent || 'Senior Technology Support Program Guide';
   const body = section.querySelector('.mini-guide-body')?.innerHTML || section.innerHTML;
   const w = window.open('', '_blank');
   w.document.write(`<!doctype html><html><head><title>${title}</title>
@@ -287,6 +305,11 @@ function printMiniGuide(id){
       h1{color:#163a5f} h3{color:#163a5f} .platform-grid{display:block}.platform-card{margin:0 0 24px}
       .aiden-tip{border-left:5px solid #d4a24a;padding:12px 16px;background:#fffaf0;margin:20px 0}
       .mini-guide-actions{display:none} li{margin-bottom:8px}
+      .icon-core-box{border:3px solid #d4a24a;border-radius:12px;padding:16px;margin-bottom:20px}
+      .icon-core-grid{display:block} .icon-core-item{margin-bottom:16px}
+      .icon-group{margin-top:22px} .icon-group h3{border-bottom:2px solid #e4dccf;padding-bottom:6px}
+      .icon-ref-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;page-break-inside:avoid}
+      .icon-ref-chips{display:flex;gap:8px} .icon-ref-chip-wrap{display:flex;flex-direction:column;align-items:center}
     </style></head><body><h1>${title}</h1>${body}</body></html>`);
   w.document.close();
   w.focus();
@@ -296,5 +319,6 @@ function printMiniGuide(id){
 
 <script src="assets/site.js"></script>
 <script src="assets/guide-data.js"></script>
+<script src="assets/icon-guide-data.js"></script>
 
 </body></html>
