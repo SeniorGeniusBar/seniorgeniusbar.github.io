@@ -122,6 +122,11 @@ function icoEyeClosed(cx,cy,scale=1,color='#fff'){
     <line x1="-9" y1="4" x2="9" y2="4" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/>
   </g>`;
 }
+function icoBluetooth(cx,cy,scale=1,color='#fff'){
+  return `<g transform="translate(${cx},${cy}) scale(${scale})">
+    <path d="M0,-9 L5,-4.5 L-5,4.5 L0,9 M0,-9 L-5,-4.5 L5,4.5 L0,9" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>`;
+}
 function icoBatteryLevel(cx,cy,scale=1,color='#fff'){
   return `<g transform="translate(${cx},${cy}) scale(${scale})">
     <rect x="-11" y="-6" width="20" height="12" rx="2" fill="none" stroke="${color}" stroke-width="2"/>
@@ -181,6 +186,7 @@ const safetyIcons = [
   { label: 'Show / Hide Password', desc: 'Tap to reveal the password you typed, so you can check it is correct.',
     variants: [{ label: 'Show', icon: icoEyeOpen }, { label: 'Hide', icon: icoEyeClosed }] },
   { label: 'Wi-Fi Signal', desc: 'Shows how strong your internet connection is.', icon: icoWifi },
+  { label: 'Bluetooth', desc: 'Means your phone can connect wirelessly to things like hearing aids, wireless earbuds, a speaker, or your car.', icon: icoBluetooth },
   { label: 'Battery', desc: 'Shows how much charge is left on your device.', icon: icoBatteryLevel }
 ];
 
