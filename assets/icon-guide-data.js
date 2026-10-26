@@ -123,8 +123,11 @@ function icoEyeClosed(cx,cy,scale=1,color='#fff'){
   </g>`;
 }
 function icoBluetooth(cx,cy,scale=1,color='#fff'){
+  // Traced from the real Bluetooth rune's proportions (the merged
+  // Younger Futhark "Hagall" + "Bjarkan" runes), not a rough triangle —
+  // it needs the small side "flags" or it just reads as an hourglass.
   return `<g transform="translate(${cx},${cy}) scale(${scale})">
-    <path d="M0,-9 L5,-4.5 L-5,4.5 L0,9 M0,-9 L-5,-4.5 L5,4.5 L0,9" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M5.71,-4.29 L0,-10 L-1,-10 L-1,-2.41 L-5.59,-7 L-7,-5.59 L-1.41,0 L-7,5.59 L-5.59,7 L-1,2.41 L-1,10 L0,10 L5.71,4.29 L1.42,0 Z M1,-6.17 L2.88,-4.29 L1,-2.41 Z M1,6.17 L2.88,4.29 L1,2.41 Z" fill="${color}"/>
   </g>`;
 }
 function icoBatteryLevel(cx,cy,scale=1,color='#fff'){
