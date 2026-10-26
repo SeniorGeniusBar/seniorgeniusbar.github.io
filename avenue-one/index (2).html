@@ -1,0 +1,207 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avenue One Community | Senior Technology Support Program</title>
+<meta name="description" content="A record of neighborhood technology support sessions Senior Technology Support Program has held for the Avenue One community since 2023.">
+<meta property="og:title" content="Avenue One Community | Senior Technology Support Program">
+<meta property="og:description" content="A record of neighborhood technology support sessions Senior Technology Support Program has held for the Avenue One community since 2023.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seniorgeniusbar.github.io/avenue-one/index.html">
+<meta property="og:image" content="https://seniorgeniusbar.github.io/assets/aiden.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23163a5f'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Arial' fill='white' text-anchor='middle' font-weight='700'%3EST%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="accessibility"><strong>Text size:</strong>
+<button onclick="changeTextSize(-1)">A− Smaller</button><button onclick="changeTextSize(1)">A+ Bigger</button><button onclick="resetTextSize()">Reset</button>
+<button id="contrastToggle" onclick="toggleContrast()">High Contrast</button></div>
+<header><div class="brand"><h1>Senior Technology Support Program</h1><p>Friendly, patient technology help for older adults.</p></div>
+<nav>
+<a href="../index.html">Home</a><a href="../about.html">About</a><a href="../guides.html">Free Guides</a>
+<a href="../request-help.html">Ask a Question</a><a href="../resources.html">Resources</a><a href="index.html">Avenue One</a><a href="../atria/index.html">Atria Residents</a>
+</nav></header>
+
+<main id="main-content">
+<div class="container"><section class="page-head"><h2>Avenue One Community</h2>
+<p>Friendly technology support for Avenue One residents.</p></section>
+
+<section id="upcomingSection"><h2 class="section-title">Upcoming Sessions</h2>
+<div class="session-grid" id="upcomingGrid"></div>
+<p id="noUpcoming" style="display:none;text-align:center;color:var(--muted)">No upcoming sessions are scheduled right now — check back soon.</p>
+</section>
+
+<section class="community-links"><div style="text-align:center"><span class="section-kicker">Between Visits</span></div><h2 class="section-title">More Ways to Get Help</h2><div class="grid">
+<a class="tile" href="../request-help.html#remote-options"><h3>Remote Help</h3><p>Email a question, or send a photo, screenshot, or short video between sessions.</p><p class="tile-cta">See Remote Help Options →</p></a>
+<a class="tile" href="../guides.html"><h3>Free Tech Guides</h3><p>Use the large-print picture guides anytime, on any device.</p><p class="tile-cta">View Guides →</p></a>
+<a class="tile" href="../resources.html"><h3>Resources</h3><p>Printable guides and trusted accessibility and scam-safety links.</p><p class="tile-cta">View Resources →</p></a>
+</div></section>
+<section id="eventHistory" class="visit-calendar-section">
+<div style="text-align:center"><span class="section-kicker">Community Calendar</span></div>
+<h2 class="section-title">Avenue One Calendar</h2>
+<p style="text-align:center;max-width:700px;margin:0 auto 16px;color:var(--muted)">Senior Technology Support Program visit dates are highlighted.</p>
+<div class="interactive-calendar-card">
+  <div class="calendar-toolbar">
+    <button type="button" id="calPrev" class="calendar-nav" aria-label="Previous month">← Previous</button>
+    <h3 id="calMonthLabel" class="calendar-month-label"></h3>
+    <button type="button" id="calNext" class="calendar-nav" aria-label="Next month">Next →</button>
+  </div>
+  <div class="calendar-weekdays" aria-hidden="true">
+    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+  </div>
+  <div id="calGrid" class="calendar-grid" role="grid" aria-label="Avenue One Senior Technology Support Program visit calendar"></div>
+  <p class="calendar-legend"><span class="calendar-dot"></span> Senior Technology Support Program visit</p>
+</div>
+</section>
+</div>
+</main>
+
+<footer><p><strong>Senior Technology Support Program</strong></p>
+<p>Helping seniors stay connected to the people and moments that matter most.</p>
+<p><a href="mailto:seniorgeniusbar@gmail.com">seniorgeniusbar@gmail.com</a></p></footer>
+<script src="../assets/site.js"></script>
+<script src="../assets/avenue-one-events.js"></script>
+<script>
+/* This page reads the SAME list in avenue-one-events.js for both the
+   "Upcoming Sessions" box and the "Visit Calendar" record below.
+   Add a date as soon as you schedule it — even months ahead — and it
+   will show under Upcoming automatically. Once that date passes, it
+   quietly becomes part of the visit calendar. Nothing ever
+   needs to be moved or re-entered by hand.
+
+   To rename the activity (shown in Upcoming Sessions and as each
+   year's heading), just change the line below — it only needs to be
+   changed in this one spot. */
+const ACTIVITY_NAME = 'Neighborhood Tech Support';
+
+function formatFriendly(iso){
+  const [y, m, d] = iso.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  return dt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+const today = new Date();
+today.setHours(0,0,0,0);
+const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+const all = [...avenueOneEvents];
+const past = all.filter(iso => iso < todayStr).sort((a, b) => b.localeCompare(a));
+
+// Avenue One sessions recur every other Sunday at 1:00 PM, starting Aug. 16, 2026.
+// Only the next two are shown so the page stays simple and easy to read.
+const AVENUE_ONE = { anchorDate: '2026-08-16', intervalDays: 14, showNext: 2, time: '1:00 PM', location: 'Avenue One Club House, First Floor' };
+function nextRecurringSessions(){
+  const [y,m,d] = AVENUE_ONE.anchorDate.split('-').map(Number);
+  let dt = new Date(y,m-1,d);
+  while(dt < today) dt.setDate(dt.getDate()+AVENUE_ONE.intervalDays);
+  const out=[];
+  for(let i=0;i<AVENUE_ONE.showNext;i++){
+    const iso=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+    out.push(iso);
+    dt.setDate(dt.getDate()+AVENUE_ONE.intervalDays);
+  }
+  return out;
+}
+const upcoming = nextRecurringSessions();
+
+document.getElementById('upcomingGrid').innerHTML = upcoming.map(iso =>
+  `<div class="session"><strong>${formatFriendly(iso)}</strong><span><b>${AVENUE_ONE.time}</b><br>${AVENUE_ONE.location}</span></div>`
+).join('');
+document.getElementById('noUpcoming').style.display = 'none';
+
+</script>
+
+
+<script>
+// Interactive Avenue One calendar -----------------------------------------
+(function(){
+  // Start with the actual recorded Avenue One visits from avenue-one-events.js.
+  const allVisitDates = new Set(
+    (typeof avenueOneEvents !== 'undefined' ? avenueOneEvents : []).filter(Boolean)
+  );
+
+  // Add the recurring Sunday schedule from Aug. 16, 2026 through Sept. 30,
+  // 2027. This affects the calendar only. The "Upcoming Sessions" section
+  // above still shows only the next two dates.
+  let future = new Date("2026-08-16T12:00:00");
+  const calendarEnd = new Date("2027-09-30T12:00:00");
+  while (future <= calendarEnd) {
+    const iso =
+      `${future.getFullYear()}-${String(future.getMonth()+1).padStart(2,"0")}-${String(future.getDate()).padStart(2,"0")}`;
+    allVisitDates.add(iso);
+    future.setDate(future.getDate() + 14);
+  }
+
+  const minMonth = new Date("2023-07-01T12:00:00");
+  const maxMonth = new Date("2027-09-01T12:00:00");
+  const now = new Date();
+  let current = new Date(now.getFullYear(), now.getMonth(), 1, 12);
+
+  if (current < minMonth) current = new Date(minMonth);
+  if (current > maxMonth) current = new Date(maxMonth);
+
+  const label = document.getElementById("calMonthLabel");
+  const grid = document.getElementById("calGrid");
+  const prev = document.getElementById("calPrev");
+  const next = document.getElementById("calNext");
+
+  function sameMonth(a,b){
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+  }
+
+  function render(){
+    const y = current.getFullYear();
+    const m = current.getMonth();
+
+    label.textContent = current.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+    prev.disabled = sameMonth(current,minMonth);
+    next.disabled = sameMonth(current,maxMonth);
+
+    grid.innerHTML = "";
+    const firstDay = new Date(y,m,1,12).getDay();
+    const daysInMonth = new Date(y,m+1,0,12).getDate();
+
+    for(let i=0;i<firstDay;i++){
+      const blank=document.createElement("span");
+      blank.className="calendar-cell calendar-blank";
+      blank.setAttribute("aria-hidden","true");
+      grid.appendChild(blank);
+    }
+
+    for(let day=1; day<=daysInMonth; day++){
+      const iso =
+        `${y}-${String(m+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      const cell=document.createElement("span");
+      cell.className="calendar-cell";
+      cell.setAttribute("role","gridcell");
+
+      const num=document.createElement("span");
+      num.className="calendar-day-number";
+      num.textContent=day;
+
+      const friendlyMonth = current.toLocaleDateString("en-US",{month:"long"});
+      if(allVisitDates.has(iso)){
+        cell.classList.add("has-visit");
+        cell.setAttribute("aria-label", `${friendlyMonth} ${day}, ${y} — Senior Technology Support Program visit`);
+      } else {
+        cell.setAttribute("aria-label", `${friendlyMonth} ${day}, ${y}`);
+      }
+      cell.appendChild(num);
+      grid.appendChild(cell);
+    }
+  }
+
+  prev.addEventListener("click",()=>{
+    if(!sameMonth(current,minMonth)){
+      current=new Date(current.getFullYear(),current.getMonth()-1,1,12);
+      render();
+    }
+  });
+
+  next.addEventListener("click",()=>{
+    if(!sameMonth(current,maxMonth)){
+      current=new Date(current.getFullYear(),current.getMonth()+1,1,12);
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+</body></html>
